@@ -19,13 +19,13 @@ CREATE TABLE CLIENTE (Id_Cliente INTEGER, Nome_Cliente (100),
                       
 );
 
-CREATE SESSAO (Cod_Sessao INTEGER, 
-               HorarioInicial TIME, HorarioFinal TIME,
-               Id_Filme INTEGER, Nome_Filme CHAR (100),
-       FOREIGN KEY (Id_Filme) REFERENCES FILME (Id_Filme),
-       FOREIGN KEY (Nome_Filme) REFERENCES FILME (Nome_Filme),
-       PRIMARY KEY (Cod_Sessao)
-               
+CREATE TABLE SESSAO (Cod_Sessao INTEGER, Sala INTEGER,
+                     HorarioInicial TIME, HorarioFinal TIME,
+                     Id_Filme INTEGER, Nome_Filme CHAR (100),
+             PRIMARY KEY (Cod_Sessao),
+             FOREIGN KEY (Id_Filme) REFERENCES FILME (Id_Filme),
+             FOREIGN KEY (Nome_Filme) REFERENCES FILME (Nome_Filme)
+            
 );        
                
 CREATE TABLE POLTRONAS (Nro_Poltrona INTEGER, Fileira CHAR (1),
@@ -34,9 +34,9 @@ CREATE TABLE POLTRONAS (Nro_Poltrona INTEGER, Fileira CHAR (1),
 );
 
 CREATE TABLE INGRESSO (Cod_Ingresso INTEGER, Cod_Sessao INTEGER,
-                       Nome_Filme CHAR (100), HorarioInicial TIME,
-                       HorarioFinal TIME, Nro_Poltrona INTEGER,
-                       Fileira CHAR (1),
+                       Nome_Filme CHAR (100), Sala_S INTEGER,
+                       HorarioInicial TIME, HorarioFinal TIME,
+                       Nro_Poltrona INTEGER, Fileira CHAR (1), 
              PRIMARY KEY (Cod_Ingresso), 
              FOREIGN KEY (Cod_Sessao) REFERENCES SESSAO (Cod_Sessao),
              FOREIGN KEY (Nome_Filme) REFERENCES SESSAO (Nome_Filme),
