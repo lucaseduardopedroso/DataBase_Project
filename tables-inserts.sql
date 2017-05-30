@@ -31,7 +31,21 @@ CREATE SESSAO (Cod_Sessao INTEGER,
 CREATE TABLE POLTRONAS (Nro_Poltrona INTEGER, Fileira CHAR (1),
              PRIMARY KEY (Nro_Poltrona, Fileira)
                
-); 
+);
+
+CREATE TABLE INGRESSO (Cod_Ingresso INTEGER, Cod_Sessao INTEGER,
+                       Nome_Filme CHAR (100), HorarioInicial TIME,
+                       HorarioFinal TIME, Nro_Poltrona INTEGER,
+                       Fileira CHAR (1),
+             PRIMARY KEY (Cod_Ingresso), 
+             FOREIGN KEY (Cod_Sessao) REFERENCES SESSAO (Cod_Sessao),
+             FOREIGN KEY (Nome_Filme) REFERENCES SESSAO (Nome_Filme),
+             FOREIGN KEY (HorarioInicial) REFERENCES SESSAO (HorarioInicial),
+             FOREIGN KEY (HorarioFinal) REFERENCES SESSAO (HorarioFinal),
+             FOREIGN KEY (Nro_Poltrona) REFERENCES POLTRONAS (Nro_Poltrona),
+             FOREIGN KEY (Fileira) REFERENCES POLTRONAS (Fileira)
+                       
+);
 
 CREATE TABLE FUNCIONARIO_RESIDE(Cidade CHAR (20), UF CHAR (2),
                                 Numero INTEGER, CEP INTEGER,
