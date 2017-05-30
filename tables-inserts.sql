@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS FILME;
 DROP TABLE IF EXISTS FUNCIONARIO;
 DROP TABLE IF EXISTS FORNECEDOR;
+DROP TABLE IF EXISTS FUNCIONARIO_RESIDE;
 
 CREATE TABLE FUNCIONARIO (Id_Func INTEGER, Nome_Func (100),
                           Data_Nasc DATE, Sexo CHAR (10), 
@@ -9,7 +10,11 @@ CREATE TABLE FUNCIONARIO (Id_Func INTEGER, Nome_Func (100),
                           
 );
 
-CREATE TABLE FUNCIONARIO_RESIDE(
+CREATE TABLE FUNCIONARIO_RESIDE(Cidade CHAR (20), UF CHAR (2),
+                                Numero INTEGER, CEP INTEGER,
+                                Logradouro CHAR (20), Id_Func INTEGER,
+             PRIMARY KEY (Cidade, Id_Func),
+             FOREIGN KEY (Id_Func) REFERENCES FUNCIONARIO (Id_Func)
   
 );
 
@@ -28,6 +33,8 @@ CREATE TABLE FILME (Id_Filme INTEGER, Nome_Filme CHAR (100),
              PRIMARY KEY (Id_Filme),
              FOREIGN KEY (Id_Forn) REFERENCES FUNCIONARIOS (Id_Forn)
 ); 
+
+
 
 
 INSERT INTO VALUES 
