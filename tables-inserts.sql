@@ -28,6 +28,10 @@ CREATE SESSAO (Cod_Sessao INTEGER,
                
 );        
                
+CREATE TABLE POLTRONAS (Nro_Poltrona INTEGER, Fileira CHAR (1),
+             PRIMARY KEY (Nro_Poltrona, Fileira)
+               
+); 
 
 CREATE TABLE FUNCIONARIO_RESIDE(Cidade CHAR (20), UF CHAR (2),
                                 Numero INTEGER, CEP INTEGER,
