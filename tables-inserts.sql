@@ -1,43 +1,43 @@
-DROP TABLE IF EXISTS CINEMA;
-DROP TABLE IF EXISTS SALA;
-DROP TABLE IF EXISTS FUNCIONARIO;
-DROP TABLE IF EXISTS CLIENTE;
-DROP TABLE IF EXISTS FORNECEDOR;
-DROP TABLE IF EXISTS GENERO;
-DROP TABLE IF EXISTS ELENCO;
-DROP TABLE IF EXISTS DIRETOR;
-DROP TABLE IF EXISTS FILME;
-DROP TABLE IF EXISTS FILME_TEMELENCO;
-DROP TABLE IF EXISTS FILME_TEMDIRETOR;
-DROP TABLE IF EXISTS SESSAO;
-DROP TABLE IF EXISTS INGRESSO;
-DROP TABLE IF EXISTS CLIENTE_RESERVAINGRESSO;
-DROP TABLE IF EXISTS PROTOCOLO_VENDAS;
-DROP TABLE IF EXISTS FUNCIONARIO_GERAINGRESSO;
-DROP TABLE IF EXISTS FUNCIONARIO_GERAINGRESSO_RESERVA;
-DROP TABLE IF EXISTS FUNCIONARIO_RESIDE;
 DROP TABLE IF EXISTS CINEMA_LOCALIZADO;
+DROP TABLE IF EXISTS FUNCIONARIO_RESIDE;
+DROP TABLE IF EXISTS FUNCIONARIO_GERAINGRESSO_RESERVA;
+DROP TABLE IF EXISTS FUNCIONARIO_GERAINGRESSO;
+DROP TABLE IF EXISTS PROTOCOLO_VENDAS;
+DROP TABLE IF EXISTS CLIENTE_RESERVAINGRESSO;
+DROP TABLE IF EXISTS INGRESSO;
+DROP TABLE IF EXISTS SESSAO;
+DROP TABLE IF EXISTS FILME_TEM_DIRETOR;
+DROP TABLE IF EXISTS FILME_TEM_ELENCO;
+DROP TABLE IF EXISTS FILME;
+DROP TABLE IF EXISTS DIRETOR;
+DROP TABLE IF EXISTS ELENCO;
+DROP TABLE IF EXISTS GENERO;
+DROP TABLE IF EXISTS FORNECEDOR;
+DROP TABLE IF EXISTS CLIENTE;
+DROP TABLE IF EXISTS FUNCIONARIO;
+DROP TABLE IF EXISTS SALA;
+DROP TABLE IF EXISTS CINEMA;
 
-CREATE TABLE CINEMA (Id_Cine INTEGER, Nome_Cine (50),
+CREATE TABLE CINEMA (Id_Cine INTEGER, Nome_Cine CHAR (50),
                      Cine_CNPJ INTEGER, Cine_Telefone INTEGER,
                      Cine_Email CHAR (50),
-             FOREIGN KEY (Id_Cine)
+             PRIMARY KEY (Id_Cine)
 );
 
 CREATE TABLE SALA (Id_Sala INTEGER, Id_SalaCine INTEGER,
-                   CapacidadeMax INTENGER,
+                   CapacidadeMax INTEGER,
              PRIMARY KEY (Id_Sala, Id_SalaCine),
              FOREIGN KEY (Id_SalaCine) REFERENCES CINEMA (Id_Cine)
 );
 
-CREATE TABLE FUNCIONARIO (Id_Func INTEGER, Nome_Func (100),
+CREATE TABLE FUNCIONARIO (Id_Func INTEGER, Nome_Func CHAR (100),
                           F_Telefone INTEGER, F_Email CHAR (50),
                           F_DataNasc DATE, F_Sexo CHAR (10), 
                           F_CPF INTEGER, Cargo CHAR (20),
              PRIMARY KEY (Id_Func)            
 );
 
-CREATE TABLE CLIENTE (Id_Cliente INTEGER, Nome_Cliente (100),
+CREATE TABLE CLIENTE (Id_Cliente INTEGER, Nome_Cliente CHAR(100),
                       C_Data_Nasc DATE, C_Sexo CHAR (10), 
                       C_CPF INTEGER, C_Email CHAR (50),
                       C_Telefone INTEGER,
@@ -61,27 +61,29 @@ CREATE TABLE ELENCO (Id_Ator INTEGER, Nome_Ator CHAR (100),
 
 CREATE TABLE DIRETOR (Id_Diret INTEGER, Nome_Diret CHAR (100),
                      D_Data_Nasc DATE, D_PaisOrigem CHAR (30),
-             PRIMARY KEY (Id_Ator)
+             PRIMARY KEY (Id_Diret)
 );
                      
 CREATE TABLE FILME (Id_Filme INTEGER, Nome_Filme CHAR (100), 
-                    FaixaEtaria INTEGER, Sinopse CHAR (500), 
-                    Elenco CHAR (140), Id_Genero CHAR (20),
+                    FaixaEtaria INTEGER, Sinopse CHAR (200), 
+                    Elenco CHAR (140), Id_Genero INTEGER,
                     Duracao TIME, Idioma CHAR (30),
                     Id_Forn INTEGER,
              PRIMARY KEY (Id_Filme),
-             FOREING KEY (Id_Genero) REFERENCES (Id_Genero),
+             FOREIGN KEY (Id_Genero) REFERENCES GENERO (Id_Genero),
              FOREIGN KEY (Id_Forn) REFERENCES FORNECEDOR (Id_Forn)
 ); 
 
-CREATE TABLE FILME_TEM_ELENCO (Id_Filme, Id_Elenco,
+CREATE TABLE FILME_TEM_ELENCO (Id_Filme INTEGER, Id_Elenco INTEGER,
+			 PRIMARY KEY (Id_Filme, Id_Elenco),
              FOREIGN KEY (Id_Filme) REFERENCES FILME (Id_Filme),
-             FOREIGN KEY (Id_Elenco) REFERENCES ELENCO (Id_Elenco)
+             FOREIGN KEY (Id_Elenco) REFERENCES ELENCO (Id_Ator)
 );                               
 
-CREATE TABLE FILME_TEM_DIRETOR (Id_Filme, Id_Diretor,
+CREATE TABLE FILME_TEM_DIRETOR (Id_Filme INTEGER, Id_Diret INTEGER,
+			 PRIMARY KEY (Id_Filme, Id_Diret),
              FOREIGN KEY (Id_Filme) REFERENCES FILME (Id_Filme),
-             FOREIGN KEY (Id_Diretor) REFERENCES DIRETOR (Id_Diretor)
+             FOREIGN KEY (Id_Diret) REFERENCES DIRETOR (Id_Diret)
 ); 
 
 CREATE TABLE SESSAO (Cod_Sessao INTEGER, Id_Sala INTEGER,
@@ -108,7 +110,7 @@ CREATE TABLE PROTOCOLO_VENDAS (Id_Protocolo INTEGER,
              PRIMARY KEY (Id_Protocolo)
 );
 
-CREATE TABLE FUNCIONARIO_GERAINGRESSO (Id_GeraIngresso, Id_Protocolo INTEGER, 
+CREATE TABLE FUNCIONARIO_GERAINGRESSO (Id_GeraIngresso INTEGER, Id_Protocolo INTEGER, 
                                        Id_Func INTEGER, Id_Ingresso INTEGER,
              PRIMARY KEY (Id_Func, Id_Ingresso, Id_Protocolo, Id_GeraIngresso),
              FOREIGN KEY (Id_Func) REFERENCES FUNCIONARIO (Id_Func),
@@ -116,9 +118,9 @@ CREATE TABLE FUNCIONARIO_GERAINGRESSO (Id_GeraIngresso, Id_Protocolo INTEGER,
              FOREIGN KEY (Id_Ingresso) REFERENCES INGRESSO (Id_Ingresso)
 );
 
-CREATE TABLE FUNCIONARIO_GERAINGRESSO_RESERVA (Id_GeraIngressoReserva, Id_Protocolo INTEGER, 
+CREATE TABLE FUNCIONARIO_GERAINGRESSO_RESERVA (Id_GeraIngressoR INTEGER, Id_Protocolo INTEGER, 
                                                Id_Func INTEGER, Id_Reserva INTEGER,
-             PRIMARY KEY (Id_Func, Id_Reserva, Id_Protocolo, Id_GeraIngresso),
+             PRIMARY KEY (Id_Func, Id_Reserva, Id_Protocolo, Id_GeraIngressoR),
              FOREIGN KEY (Id_Func) REFERENCES FUNCIONARIO (Id_Func),
              FOREIGN KEY (Id_Protocolo) REFERENCES PROTOCOLO_VENDAS (Id_Protocolo), 
              FOREIGN KEY (Id_Reserva) REFERENCES CLIENTE_RESERVAINGRESSO (Id_Reserva)
@@ -137,6 +139,4 @@ CREATE TABLE CINEMA_LOCALIZADO (Cidade CHAR (20), UF CHAR (2),
                                 Logradouro CHAR (20), Id_Cine INTEGER,
              PRIMARY KEY (Cidade, Id_Cine),
              FOREIGN KEY (Id_Cine) REFERENCES CINEMA (Id_Cine)
-);                          
-
-INSERT INTO VALUES 
+);                       
