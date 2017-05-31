@@ -98,17 +98,11 @@ CREATE TABLE FUNCIONARIO_RESIDE(Cidade CHAR (20), UF CHAR (2),
   
 );
 
-CREATE TABLE FILME (Id_Filme INTEGER, Nome_Filme CHAR (100), 
-                    FaixaEtaria INTEGER,
-                    Sinopse CHAR (500), Diretor CHAR (30),
-                    Elenco CHAR (140), Genero CHAR (20),
-                    Duracao TIME, Idioma CHAR (30),
-                    Id_Forn INTEGER,
-             PRIMARY KEY (Id_Filme),
-             FOREIGN KEY (Id_Forn) REFERENCES FUNCIONARIOS (Id_Forn)
-); 
-
-
-
+CREATE TABLE CINEMA_LOCALIZADO (Cidade CHAR (20), UF CHAR (2),
+                                Numero INTEGER, CEP INTEGER,
+                                Logradouro CHAR (20), Id_Cine INTEGER,
+             PRIMARY KEY (Cidade, Id_Cine),
+             FOREIGN KEY (Id_Cine) REFERENCES CINEMA (Id_Cine)
+);                          
 
 INSERT INTO VALUES 
