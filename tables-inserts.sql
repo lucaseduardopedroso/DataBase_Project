@@ -54,7 +54,7 @@ CREATE TABLE GENERO (Id_Genero INTEGER, Nome_Genero CHAR (30),
 );
 
 CREATE TABLE ATORES (Id_Ator INTEGER, Nome_Ator CHAR (100),
-                     A_DataNasc DATE, E_PaisOrigem CHAR (30),
+                     A_DataNasc DATE, A_PaisOrigem CHAR (30),
              PRIMARY KEY (Id_Ator)
 );
                   
