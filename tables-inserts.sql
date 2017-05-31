@@ -71,7 +71,7 @@ CREATE TABLE FILME (Id_Filme INTEGER, Nome_Filme CHAR (100),
 CREATE TABLE FILME_TEM_ATORES (Id_Filme INTEGER, Id_Atores INTEGER,
 			 PRIMARY KEY (Id_Filme, Id_Atores),
              FOREIGN KEY (Id_Filme) REFERENCES FILME (Id_Filme),
-             FOREIGN KEY (Id_Atores) REFERENCES ATORES (Id_Ator)
+             FOREIGN KEY (Id_Ator) REFERENCES ATORES (Id_Ator)
 );                               
 
 CREATE TABLE SESSAO (Cod_Sessao INTEGER, Id_Sala INTEGER,
