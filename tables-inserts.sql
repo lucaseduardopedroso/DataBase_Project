@@ -68,8 +68,8 @@ CREATE TABLE FILME (Id_Filme INTEGER, Nome_Filme CHAR (100),
              FOREIGN KEY (Id_Forn) REFERENCES FORNECEDOR (Id_Forn)
 ); 
 
-CREATE TABLE FILME_TEM_ATORES (Id_Filme INTEGER, Id_Atores INTEGER,
-			 PRIMARY KEY (Id_Filme, Id_Atores),
+CREATE TABLE FILME_TEM_ATORES (Id_Filme INTEGER, Id_Ator INTEGER,
+			 PRIMARY KEY (Id_Filme, Id_Ator),
              FOREIGN KEY (Id_Filme) REFERENCES FILME (Id_Filme),
              FOREIGN KEY (Id_Ator) REFERENCES ATORES (Id_Ator)
 );                               
