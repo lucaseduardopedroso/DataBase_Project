@@ -60,7 +60,7 @@ CREATE TABLE ATORES (Id_Ator INTEGER, Nome_Ator CHAR (100),
                   
 CREATE TABLE FILME (Id_Filme INTEGER, Nome_Filme CHAR (100), 
                     FaixaEtaria INTEGER, Sinopse CHAR (200), 
-                    Elenco CHAR (140), Id_Genero INTEGER,
+                    Atores CHAR (140), Id_Genero INTEGER,
                     Duracao TIME, Idioma CHAR (30),
                     Id_Forn INTEGER, Diretor CHAR (50),
              PRIMARY KEY (Id_Filme),
@@ -68,10 +68,10 @@ CREATE TABLE FILME (Id_Filme INTEGER, Nome_Filme CHAR (100),
              FOREIGN KEY (Id_Forn) REFERENCES FORNECEDOR (Id_Forn)
 ); 
 
-CREATE TABLE FILME_TEM_ATORES (Id_Filme INTEGER, Id_Elenco INTEGER,
-			 PRIMARY KEY (Id_Filme, Id_Elenco),
+CREATE TABLE FILME_TEM_ATORES (Id_Filme INTEGER, Id_Atores INTEGER,
+			 PRIMARY KEY (Id_Filme, Id_Atores),
              FOREIGN KEY (Id_Filme) REFERENCES FILME (Id_Filme),
-             FOREIGN KEY (Id_Elenco) REFERENCES ATORES (Id_Ator)
+             FOREIGN KEY (Id_Atores) REFERENCES ATORES (Id_Ator)
 );                               
 
 CREATE TABLE SESSAO (Cod_Sessao INTEGER, Id_Sala INTEGER,
