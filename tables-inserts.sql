@@ -76,7 +76,7 @@ CREATE TABLE FILME_TEM_ATORES (Id_Filme INTEGER, Id_Atores INTEGER,
 
 CREATE TABLE SESSAO (Cod_Sessao INTEGER, Id_Sala INTEGER,
                      Horario TIME, Id_Filme INTEGER,
-                     Data DATE, NroVendas INTEGER,
+                     Data DATE,
              PRIMARY KEY (Cod_Sessao, Id_Sala, Id_Filme, Data),
              FOREIGN KEY (Id_Filme) REFERENCES FILME (Id_Filme),
              FOREIGN KEY (Id_Sala) REFERENCES SALA (Id_sala)         
