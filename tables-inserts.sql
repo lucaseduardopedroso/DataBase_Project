@@ -9,7 +9,6 @@ DROP TABLE IF EXISTS SESSAO;
 DROP TABLE IF EXISTS FILME_TEM_DIRETOR;
 DROP TABLE IF EXISTS FILME_TEM_ELENCO;
 DROP TABLE IF EXISTS FILME;
-DROP TABLE IF EXISTS DIRETOR;
 DROP TABLE IF EXISTS ELENCO;
 DROP TABLE IF EXISTS GENERO;
 DROP TABLE IF EXISTS FORNECEDOR;
@@ -58,17 +57,12 @@ CREATE TABLE ELENCO (Id_Ator INTEGER, Nome_Ator CHAR (100),
                      A_DataNasc DATE, E_PaisOrigem CHAR (30),
              PRIMARY KEY (Id_Ator)
 );
-
-CREATE TABLE DIRETOR (Id_Diret INTEGER, Nome_Diret CHAR (100),
-                     D_Data_Nasc DATE, D_PaisOrigem CHAR (30),
-             PRIMARY KEY (Id_Diret)
-);
-                     
+                  
 CREATE TABLE FILME (Id_Filme INTEGER, Nome_Filme CHAR (100), 
                     FaixaEtaria INTEGER, Sinopse CHAR (200), 
                     Elenco CHAR (140), Id_Genero INTEGER,
                     Duracao TIME, Idioma CHAR (30),
-                    Id_Forn INTEGER,
+                    Id_Forn INTEGER, Diretor CHAR (50),
              PRIMARY KEY (Id_Filme),
              FOREIGN KEY (Id_Genero) REFERENCES GENERO (Id_Genero),
              FOREIGN KEY (Id_Forn) REFERENCES FORNECEDOR (Id_Forn)
@@ -79,12 +73,6 @@ CREATE TABLE FILME_TEM_ELENCO (Id_Filme INTEGER, Id_Elenco INTEGER,
              FOREIGN KEY (Id_Filme) REFERENCES FILME (Id_Filme),
              FOREIGN KEY (Id_Elenco) REFERENCES ELENCO (Id_Ator)
 );                               
-
-CREATE TABLE FILME_TEM_DIRETOR (Id_Filme INTEGER, Id_Diret INTEGER,
-			 PRIMARY KEY (Id_Filme, Id_Diret),
-             FOREIGN KEY (Id_Filme) REFERENCES FILME (Id_Filme),
-             FOREIGN KEY (Id_Diret) REFERENCES DIRETOR (Id_Diret)
-); 
 
 CREATE TABLE SESSAO (Cod_Sessao INTEGER, Id_Sala INTEGER,
                      Horario TIME, Id_Filme INTEGER,
