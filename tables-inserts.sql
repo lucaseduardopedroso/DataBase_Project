@@ -1,7 +1,22 @@
-DROP TABLE IF EXISTS FILME;
+DROP TABLE IF EXISTS CINEMA;
+DROP TABLE IF EXISTS SALA;
 DROP TABLE IF EXISTS FUNCIONARIO;
+DROP TABLE IF EXISTS CLIENTE;
 DROP TABLE IF EXISTS FORNECEDOR;
+DROP TABLE IF EXISTS GENERO;
+DROP TABLE IF EXISTS ELENCO;
+DROP TABLE IF EXISTS DIRETOR;
+DROP TABLE IF EXISTS FILME;
+DROP TABLE IF EXISTS FILME_TEMELENCO;
+DROP TABLE IF EXISTS FILME_TEMDIRETOR;
+DROP TABLE IF EXISTS SESSAO;
+DROP TABLE IF EXISTS INGRESSO;
+DROP TABLE IF EXISTS CLIENTE_RESERVAINGRESSO;
+DROP TABLE IF EXISTS PROTOCOLO_VENDAS;
+DROP TABLE IF EXISTS FUNCIONARIO_GERAINGRESSO;
+DROP TABLE IF EXISTS FUNCIONARIO_GERAINGRESSO_RESERVA;
 DROP TABLE IF EXISTS FUNCIONARIO_RESIDE;
+DROP TABLE IF EXISTS CINEMA_LOCALIZADO;
 
 CREATE TABLE CINEMA (Id_Cine INTEGER, Nome_Cine (50),
                      Cine_CNPJ INTEGER, Cine_Telefone INTEGER,
@@ -13,12 +28,6 @@ CREATE TABLE SALA (Id_Sala INTEGER, Id_SalaCine INTEGER,
                    CapacidadeMax INTENGER,
              PRIMARY KEY (Id_Sala, Id_SalaCine),
              FOREIGN KEY (Id_SalaCine) REFERENCES CINEMA (Id_Cine)
-);
-
-CREATE TABLE SALA_TEMPOLTRONAS (Id_Sala INTEGER,
-                                Nro_Poltrona INTEGER, Fileira CHAR (1),
-             PRIMARY KEY (Nro_Poltrona, Fileira, Id_Sala),
-             FOREIGN KEY (Id_Sala) REFERENCES SALA (Id_Sala)                   
 );
 
 CREATE TABLE FUNCIONARIO (Id_Func INTEGER, Nome_Func (100),
@@ -83,10 +92,38 @@ CREATE TABLE SESSAO (Cod_Sessao INTEGER, Id_Sala INTEGER,
              FOREIGN KEY (Id_Sala) REFERENCES SALA (Id_sala)         
 );                      
 
-CREATE TABLE INGRESSO (
-                       
+CREATE TABLE INGRESSO (Id_Ingresso INTEGER, Cod_Sessao INTEGER,
+             PRIMARY KEY (Id_Ingresso, Cod_Sessao),
+             FOREIGN KEY (Cod_sessao) REFERENCES SESSAO (Cod_Sessao)    
 );
 
+CREATE TABLE CLIENTE_RESERVAINGRESSO (Id_Cliente INTEGER, Id_Reserva INTEGER,
+                                      Id_Ingresso INTEGER,
+             PRIMARY KEY (Id_Reserva, Id_Cliente, Id_Ingresso),
+             FOREIGN KEY (Id_Cliente) REFERENCES CLIENTE (Id_Cliente),
+             FOREIGN KEY (Id_Ingresso) REFERENCES INGRESSO (Id_Ingresso)
+);
+
+CREATE TABLE PROTOCOLO_VENDAS (Id_Protocolo INTEGER,
+             PRIMARY KEY (Id_Protocolo)
+);
+
+CREATE TABLE FUNCIONARIO_GERAINGRESSO (Id_GeraIngresso, Id_Protocolo INTEGER, 
+                                       Id_Func INTEGER, Id_Ingresso INTEGER,
+             PRIMARY KEY (Id_Func, Id_Ingresso, Id_Protocolo, Id_GeraIngresso),
+             FOREIGN KEY (Id_Func) REFERENCES FUNCIONARIO (Id_Func),
+             FOREIGN KEY (Id_Protocolo) REFERENCES PROTOCOLO_VENDAS (Id_Protocolo), 
+             FOREIGN KEY (Id_Ingresso) REFERENCES INGRESSO (Id_Ingresso)
+);
+
+CREATE TABLE FUNCIONARIO_GERAINGRESSO_RESERVA (Id_GeraIngressoReserva, Id_Protocolo INTEGER, 
+                                               Id_Func INTEGER, Id_Reserva INTEGER,
+             PRIMARY KEY (Id_Func, Id_Reserva, Id_Protocolo, Id_GeraIngresso),
+             FOREIGN KEY (Id_Func) REFERENCES FUNCIONARIO (Id_Func),
+             FOREIGN KEY (Id_Protocolo) REFERENCES PROTOCOLO_VENDAS (Id_Protocolo), 
+             FOREIGN KEY (Id_Reserva) REFERENCES CLIENTE_RESERVAINGRESSO (Id_Reserva)
+);     
+                                      
 CREATE TABLE FUNCIONARIO_RESIDE(Cidade CHAR (20), UF CHAR (2),
                                 Numero INTEGER, CEP INTEGER,
                                 Logradouro CHAR (20), Id_Func INTEGER,
