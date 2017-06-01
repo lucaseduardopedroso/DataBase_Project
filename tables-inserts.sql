@@ -33,7 +33,9 @@ CREATE TABLE FUNCIONARIO (Id_Func INTEGER, Nome_Func CHAR (100),
                           F_Telefone INTEGER, F_Email CHAR (50),
                           F_DataNasc DATE, F_Sexo CHAR (10), 
                           F_CPF INTEGER, Cargo CHAR (20),
-             PRIMARY KEY (Id_Func)            
+			  Id_Cine INTEGER,
+             PRIMARY KEY (Id_Func, Id_Cine),
+	     FOREIGN KEY (Id_Cine) REFERENCES CINEMA (Id_Cine)	  
 );
 
 CREATE TABLE CLIENTE (Id_Cliente INTEGER, Nome_Cliente CHAR(100),
