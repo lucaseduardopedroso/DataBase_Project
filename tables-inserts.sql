@@ -127,4 +127,6 @@ CREATE TABLE CINEMA_LOCALIZADO (Cidade CHAR (20), UF CHAR (2),
                                 Logradouro CHAR (20), Id_Cine INTEGER,
              PRIMARY KEY (Cidade, Id_Cine),
              FOREIGN KEY (Id_Cine) REFERENCES CINEMA (Id_Cine)
-);                       
+);
+
+INSERT INTO CINEMA (Id_Cine, Nome_Cine, Cine_CNPJ, Cine_Telefone, Cine_Email) VALUES (01, Cine Star, 0908268385, 4430275134, contato@cinestar.com), (02, CineMark, 08049348504, 1130456945, cine@cinemark.com);
