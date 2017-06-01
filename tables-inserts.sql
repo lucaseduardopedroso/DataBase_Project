@@ -130,3 +130,4 @@ CREATE TABLE CINEMA_LOCALIZADO (Cidade CHAR (20), UF CHAR (2),
 );
 
 INSERT INTO CINEMA (Id_Cine, Nome_Cine, Cine_CNPJ, Cine_Telefone, Cine_Email) VALUES (01, Cine Star, 0908268385, 4430275134, contato@cinestar.com), (02, CineMark, 08049348504, 1130456945, cine@cinemark.com);
+INSERT INTO SALA (Id_Sala, Id_SalaCine, CapacidadeMax) VALUES (001, 01, 200), (002, 01, 200), (003, 01, 200), (004, 01, 200), (005, 01, 200), (001, 02, 200), (002, 02, 200), (003, 02, 200), (004, 02, 200), (005, 02, 200);
