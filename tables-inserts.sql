@@ -32,7 +32,7 @@ CREATE TABLE SALA (Id_Sala INTEGER, Id_SalaCine INTEGER,
 CREATE TABLE FUNCIONARIO (Id_Func INTEGER, Nome_Func CHAR (100),
                           F_Telefone INTEGER, F_Email CHAR (50),
                           F_DataNasc DATE, F_Sexo CHAR (10), 
-                          F_CPF INTEGER, Cargo CHAR (20),
+                          F_CPF INTEGER,
 			  Id_Cine INTEGER,
              PRIMARY KEY (Id_Func, Id_Cine),
 	     FOREIGN KEY (Id_Cine) REFERENCES CINEMA (Id_Cine)	  
@@ -133,3 +133,4 @@ CREATE TABLE CINEMA_LOCALIZADO (Cidade CHAR (20), UF CHAR (2),
 
 INSERT INTO CINEMA (Id_Cine, Nome_Cine, Cine_CNPJ, Cine_Telefone, Cine_Email) VALUES (01, Cine Star, 0908268385, 4430275134, contato@cinestar.com), (02, CineMark, 08049348504, 1130456945, cine@cinemark.com);
 INSERT INTO SALA (Id_Sala, Id_SalaCine, CapacidadeMax) VALUES (001, 01, 200), (002, 01, 200), (003, 01, 200), (004, 01, 200), (005, 01, 200), (001, 02, 200), (002, 02, 200), (003, 02, 200), (004, 02, 200), (005, 02, 200);
+INSERT INTO FUNCIONARIO (Id_Func, Nome_Func, F_Telefone, F_Email, F_DataNasc, F_Sexo, F_CPF, Id_Cine) VALUES (1001, Gregorio, 1198435632, gregroger@hotmail.com, 09/10/1998, Masculino, 08347626606, 01), (1015, Stefano, 119912415604, stefano.pepper@gmail.com, 23/06/1994, Masculino, 0873483978, 01), (1016, Greicy Kelly, 1199456832, gklopes@hotmail.com, 02/02/1995, Feminino, 68344693409, 01), (0010, Josiele, 44998724832, jos.joice@hotmail.com, 24/01/1996, Feminino, 08439458706, 02), (0035, Mariana, 44988634532, mariluci@gmail.com, 16/08/1995, Feminino, 05034689307, 02), (0016, Jaime, 4498503294, jajaiminho@hotmail.com, 01/11/1993, Masculino, 08035027409, 02);
